@@ -1,7 +1,8 @@
 version: '3'
 services:
   app:
-    image: 'jc21/nginx-proxy-manager:latest'
+    image: 'jc21/nginx-proxy-manager:2.9.7'
+    restart: unless-stopped
     ports:
       - '80:80'
       - '81:81'
@@ -10,8 +11,10 @@ services:
       - ./config.json:/app/config/production.json
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
+      - ./logs:/var/log
   db:
-    image: 'jc21/mariadb-aria:10.4'
+    image: 'jc21/mariadb-aria:latest'
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: 'npm'
       MYSQL_DATABASE: 'npm'
